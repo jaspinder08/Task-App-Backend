@@ -12,7 +12,7 @@ docker-compose up
 3. psql -U <username> -d <database_name>
    psql -U admin -d taskapp
 
--------Now run the server , pg-admin
+RUN SERVER
 
 1. python app.py
 
