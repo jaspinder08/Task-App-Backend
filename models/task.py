@@ -11,4 +11,4 @@ class Tasks(Base):
     title = Column(String, index=True)
     content = Column(String)
     author_id = Column(Integer, ForeignKey("users.id"))
-    author = relationship("User", back_populates="tasks")
+    author = relationship("User", backref="tasks")

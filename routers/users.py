@@ -1,8 +1,8 @@
 from fastapi import APIRouter,HTTPException, Depends
 from sqlalchemy.orm import Session
-from db.user import User
+from models.user import User
 from dependencies import get_db
-from schemas.user import UserCreate ,UserLogin
+from schemas.user import UserCreate ,UserLogin, Token
 
 
 user_router = APIRouter()
@@ -16,4 +16,23 @@ def signup(
                 email = user_data.email,
                 password = user_data.password,
                 )
-    return
+    user.hash_password(user_data.password)
+    db.add(user)
+    db.commit()
+    
+    return{
+        'message' : "User has been created"
+    }
+
+
+@user_router.post('/login')
+def login(
+    user_data: UserLogin , db : Session = Depends(get_db)
+):
+    
+    user = db.query(User).filter(User.username == user_data.username).first()
+    
+    if user is None or not user.verify_password(user.user_data.password):
+        raise HTTPException (status_code=401, default ='Invalid Credentals')
+    token = user.generate_token() 
+    return Token(access_token= token, token_type='bearer')

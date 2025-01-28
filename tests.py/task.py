@@ -1,5 +1,5 @@
-from db.task import Tasks
-from db.user import User
+from models.task import Tasks
+from models.user import User
 
 def task_create():
     task =  Tasks(title =" my first task", content =" This is my first content",)
