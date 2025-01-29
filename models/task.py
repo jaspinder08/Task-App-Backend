@@ -10,5 +10,5 @@ class Tasks(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     title = Column(String, index=True)
     content = Column(String)
-    author_id = Column(Integer, ForeignKey("users.id"))
+    author_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     author = relationship("User", backref="tasks")
