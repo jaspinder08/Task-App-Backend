@@ -2,7 +2,8 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
-from decouple import config as envconfig
+
+# from decouple import config as envconfig
 from models.user import User
 from models.task import Tasks
 from database import Base
@@ -16,10 +17,10 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-section = config.config_ini_section
-config.set_section_option(section, "DB_USERNAME", envconfig("DB_USERNAME"))
-config.set_section_option(section, "DB_PASSWORD", envconfig("DB_PASSWORD"))
-config.set_section_option(section, "DB_NAME", envconfig("DB_NAME"))
+# section = config.config_ini_section
+# config.set_section_option(section, "DB_USERNAME", envconfig("DB_USERNAME"))
+# config.set_section_option(section, "DB_PASSWORD", envconfig("DB_PASSWORD"))
+# config.set_section_option(section, "DB_NAME", envconfig("DB_NAME"))
 
 # add your model's MetaData object here
 # for 'autogenerate' support

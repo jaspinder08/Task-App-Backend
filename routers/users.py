@@ -7,14 +7,14 @@ from schemas.user import UserCreate ,UserLogin, Token
 
 user_router = APIRouter()
 
-@user_router.post("/signup", tags='auth',)
+@user_router.post("/signup", tags=["auth"],)
 def signup(
     user_data : UserCreate,
     db: Session = Depends(get_db),
 ):
     user = User(username= user_data.username,
                 email = user_data.email,
-                password = user_data.password,
+                hashed_password = user_data.password,
                 )
     user.hash_password(user_data.password)
     db.add(user)
@@ -25,7 +25,7 @@ def signup(
     }
 
 
-@user_router.post('/login')
+@user_router.post('/login',tags=["auth"])
 def login(
     user_data: UserLogin , db : Session = Depends(get_db)
 ):
