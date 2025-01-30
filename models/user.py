@@ -18,7 +18,7 @@ class User(Base):
 
     def hash_password(self, password:str):
         self.hashed_password = bcrypt.hashpw(password.encode('utf-8'),
-                                             bcrypt.gensalt().decode('utf-8'),)
+                                             bcrypt.gensalt()).decode('utf-8')
 
     def verify_password(self,password:str):
         return bcrypt.checkpw(password.encode("utf-8"), self.hashed_password("utf-8"))
